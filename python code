@@ -1,0 +1,80 @@
+$ pip install git+https://github.com/RIPE-NCC/ripe-atlas-cousteau.git  
+from datetime import datetime
+from ripe.atlas.cousteau import (
+  Ping,
+  Traceroute,
+  AtlasSource,
+  AtlasCreateRequest
+)
+
+ATLAS_API_KEY = ""
+
+ping = Ping(af=4, target="www.google.gr", description="testing new wrapper")
+
+traceroute = Traceroute(
+    af=4,
+    target="www.ripe.net",
+    description="testing",
+    protocol="ICMP",
+)
+
+source = AtlasSource(
+    type="area",
+    value="WW",
+    requested=5,
+    tags={"include":["system-ipv4-works"]}
+)
+source1 = AtlasSource(
+    type="country",
+    value="NL",
+    requested=50,
+    tags={"exclude": ["system-anchor"]}
+)
+
+
+atlas_request = AtlasCreateRequest(
+    start_time=datetime.utcnow(),
+    key=ATLAS_API_KEY,
+    measurements=[ping, traceroute],
+    sources=[source, source1],
+    is_oneoff=True
+)
+
+(is_success, response) = atlas_request.create()
+from datetime import datetime
+from ripe.atlas.cousteau import AtlasResultsRequest
+
+kwargs = {
+    "msm_id": 41228265,
+    "start": datetime(2022, 05, 18),
+    "stop": datetime(2022, 05, 18,
+    "probe_ids": [1,8,8]
+}
+
+is_success, results = AtlasResultsRequest(**kwargs).create()
+
+if is_success:
+    print(results)
+    from ripe.atlas.cousteau import AtlasSource
+
+source = AtlasSource(
+    type="area",
+    value="WW",
+    requested=5,
+    tags={"include":["system-ipv4-works"]}
+)
+source1 = AtlasSource(
+    type="country",
+    value="NL",
+    requested=50,
+    tags={"exclude": ["system-anchor"]}
+
+    
+   
+
+
+
+
+
+
+
